@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Report</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* الهيدر العلوي */
+        .header-bg {
+            background-color: #840000;
+            padding: 5px 15px 5px 15px;
+            color: #ffffff;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            margin-bottom: 2px;
+        }
+
+        .top-welcome {
+            font-size: 10px;
+        }
+        .top-welcome span {
+            color: #ffcccc;
+        }
+
+        .top-right-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-right-controls a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .top-right-controls select {
+            font-size: 9px;
+            padding: 1px;
+            height: 16px;
+        }
+
+        .top-right-controls input[type="text"] {
+            height: 12px;
+            width: 120px;
+            border: 1px solid #777;
+        }
+
+        .search-btn {
+            background-color: #f2f2f2;
+            color: #000;
+            border: 1px solid #777;
+            font-size: 10px;
+            padding: 1px 6px;
+            cursor: pointer;
+        }
+
+        .header-main {
+            display: flex;
+            align-items: flex-end;
+            margin-top: 2px;
+            margin-bottom: 5px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .cic-logo-container {
+            display: flex;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            padding-right: 12px;
+            margin-right: 12px;
+        }
+
+        .maple-leaf {
+            font-size: 26px;
+            color: #ffffff;
+            margin-right: 5px;
+            line-height: 1;
+        }
+
+        .cic-text {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #ffffff;
+            line-height: 0.85;
+            letter-spacing: 0.5px;
+        }
+        .cic-text span {
+            display: block;
+            font-size: 7px;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+        }
+
+        .powercampus-text {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+        .powercampus-text span {
+            font-size: 9px;
+            font-weight: normal;
+            display: block;
+            color: #cccccc;
+        }
+
+        /* شريط التبويبات الرئيسي المكتمل والممتد مفروداً */
+        .navbar {
+            display: flex;
+            background-color: #840000;
+            padding-left: 10px;
+            border-bottom: 4px solid #5a0000;
+            overflow-x: auto; /* يسمح بالسحب الأفقي على الموبايل عشان يفضل مفرود */
+            white-space: nowrap; /* يمنع نزول العناصر تحت بعضها نهائياً */
+        }
+        .nav-tab {
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 6px 14px;
+            font-size: 11px;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .nav-tab.active {
+            background-color: #ffffff;
+            color: #840000;
+            font-weight: bold;
+            border-radius: 3px 3px 0 0;
+            border-right: 1px solid #cccccc;
+        }
+
+        .sub-bar {
+            background-color: #5a0000;
+            color: white;
+            padding: 3px 15px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* التقسيمة والمساحات الكلية */
+        .wrapper {
+            display: flex;
+            background-color: #ffffff;
+        }
+
+        /* القائمة الجانبية اليسرى */
+        .sidebar {
+            width: 150px;
+            background-color: #f7f7f7;
+            border-right: 1px solid #dddddd;
+            padding: 8px;
+            min-height: 850px;
+        }
+        .sidebar-header {
+            background-color: #840000;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 3px 5px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+        .sidebar-label {
+            font-size: 11px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .sidebar select {
+            width: 100%;
+            font-size: 11px;
+            padding: 1px;
+            margin-bottom: 8px;
+        }
+        .btn-submit {
+            background-color: #840000;
+            color: #ffffff;
+            border: 1px solid #5a0000;
+            padding: 2px 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .print-btn {
+            margin-top: 12px;
+            display: block;
+            color: #840000;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        /* منطقة محتوى الجداول */
+        .main-content {
+            flex: 1;
+            padding: 15px 20px;
+        }
+
+        .report-title {
+            color: #840000;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px dotted #840000;
+            padding-bottom: 3px;
+            width: 680px;
+        }
+
+        /* حاوية الجدول وعرضها المتطابق مع الصورة */
+        .data-table-container {
+            width: 680px; 
+            margin-top: 10px;
+        }
+
+        .sequence-header {
+            background-color: #e4e4e4;
+            border: 1px solid #cccccc;
+            border-bottom: none;
+            display: inline-block;
+            padding: 3px 25px;
+            font-size: 10px;
+            color: #444444;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            top: 1px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+            color: #840000;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 6px;
+            border: 1px solid #cccccc;
+            text-align: left;
+        }
+        .data-table td {
+            padding: 5px 6px;
+            border: 1px solid #e2e2e2;
+            font-size: 11px;
+            color: #333333;
+        }
+        .data-table td a {
+            color: #840000;
+            text-decoration: underline;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        /* الجدول السفلي المدمج للـ GPA والـ Credits */
+        .gpa-container {
+            width: 380px;
+            margin-top: 15px;
+            border: 1px solid #dddddd;
+        }
+        .gpa-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .gpa-table th {
+            background-color: #f9f9f9;
+            color: #840000;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 4px 6px;
+            border-bottom: 1 solid #dddddd;
+            text-align: left;
+        }
+        .gpa-table td {
+            padding: 4px 6px;
+            font-size: 11px;
+            color: #333333;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .gpa-table tr:last-child td {
+            border-bottom: none;
+        }
+        .gpa-grey-label {
+            color: #666666;
+            font-size: 10px;
+            width: 22%;
+        }
+        .gpa-val {
+            width: 18%;
+        }
+
+        /* الفوتر السفلي */
+        .footer {
+            background-color: #840000;
+            color: #ffffff;
+            padding: 5px;
+            text-align: center;
+            font-size: 10px;
+            border-top: 3px solid #5a0000;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bg">
+        <div class="top-row">
+            <div class="top-welcome">Welcome <span>(mohamed_m07061)</span></div>
+            <div class="top-right-controls">
+                <a href="#">Cart</a> | <a href="#">Help</a> | <a href="#">Log Out</a>
+                <select>
+                    <option>Catalog</option>
+                </select>
+                <input type="text">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="logo-section">
+                <div class="cic-logo-container">
+                    <span class="maple-leaf">🍁</span>
+                    <div class="cic-text">
+                        CIC
+                        <span>CANADIAN INTERNATIONAL COLLEGE<br>THE FUTURE IS YOURS</span>
+                    </div>
+                </div>
+                <div class="powercampus-text">
+                    PowerCampus
+                    <span>by Ellucian™</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="#" class="nav-tab">Home</a>
+        <a href="#" class="nav-tab">Register</a>
+        <a href="#" class="nav-tab">Classes</a>
+        <a href="#" class="nav-tab">Finances</a>
+        <a href="#" class="nav-tab active">Grades</a>
+        <a href="#" class="nav-tab">Search</a>
+        <a href="#" class="nav-tab">My Profile</a>
+        <a href="#" class="nav-tab">Student Manual</a>
+    </div>
+    <div class="sub-bar">Grade Report</div>
+
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="sidebar-header">Options</div>
+            <span class="sidebar-label">Period</span>
+            <select>
+                <option>2025/Spring</option>
+            </select>
+            <button class="btn-submit">Submit</button>
+            <a href="#" class="print-btn">📄 Print Report</a>
+        </div>
+
+        <div class="main-content">
+            <div class="report-title">Grade Report - 2025/Spring</div>
+            
+            <div class="data-table-container">
+                <div class="sequence-header">Sequence 001</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 12%;">Session</th>
+                            <th style="width: 48%;">Course</th>
+                            <th style="width: 10%;">Section</th>
+                            <th style="width: 10%;">Credits</th>
+                            <th style="width: 10%;">Quality Points</th>
+                            <th style="width: 10%;">Final Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Session 01</td>
+                            <td>E23-BSC 032 Lecture <a href="#">Principles of Mechanical Power Eng.</a></td>
+                            <td>LEC</td>
+                            <td>3.00</td>
+                            <td>9.90</td>
+                            <td>B+</td>
+                        </tr>
+                        <tr>
+                            <td>Session 01</td>
+                            <td>E23-BSC 211 Lecture <a href="#">Professional Ethics</a></td>
+                            <td>LEC</td>
+                            <td>3.00</td>
+                            <td>9.90</td>
+                            <td>B+</td>
+                        </tr>
+                        <tr>
+                            <td>Session 01</td>
+                            <td>E23-ECE 112 Lecture <a href="#">Analysis & Research Skills</a></td>
+                            <td>LEC</td>
+                            <td>3.00</td>
+                            <td>6.90</td>
+                            <td>C+</td>
+                        </tr>
+                        <tr>
+                            <td>Session 01</td>
+                            <td>E23-ECE 122 Lecture <a href="#">Digital and Logic Circuits</a></td>
+                            <td>LEC</td>
+                            <td>3.00</td>
+                            <td>5.10</td>
+                            <td>C-</td>
+                        </tr>
+                        <tr>
+                            <td>Session 01</td>
+                            <td>E23-ECE 171 Lecture <a href="#">Signal Analysis</a></td>
+                            <td>LEC</td>
+                            <td>3.00</td>
+                            <td>3.00</td>
+                            <td>D</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="gpa-container">
+                <table class="gpa-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="width: 40%;">Credits</th>
+                            <th style="width: 30%;">GPA</th>
+                            <th style="width: 30%;">Awards</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="gpa-grey-label">Attempted:</td>
+                            <td class="gpa-val">15.00</td>
+                            <td class="gpa-grey-label">Term:</td>
+                            <td>2.19</td>
+                            <td class="gpa-grey-label">Term:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="gpa-grey-label">Earned:</td>
+                            <td class="gpa-val">15.00</td>
+                            <td class="gpa-grey-label">Overall:</td>
+                            <td>2.26</td>
+                            <td class="gpa-grey-label">Overall:</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        PowerCampus® Self-Service 8.8.3 · Copyright 1995 - 2018 Ellucian Company L.P. and its affiliates.
+    </div>
+
+</body>
+</html>
